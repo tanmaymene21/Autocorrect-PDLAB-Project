@@ -52,52 +52,42 @@ def process_text():
     corrections_display.delete(1.0, tk.END)
     corrections_display.insert(tk.END, "\n".join([f"{word}: {corrections[word]}" for word in corrections]))
 
+def ask_for_saving():
     # Finally, overwrite the text file with the corrected text
     file_path = filedialog.asksaveasfilename(defaultextension=".txt", filetypes=[("Text files", "*.txt")])
+    text = original_text.get(1.0, tk.END)
+    corrected_text_blob = correct_text_with_textblob(text)
     if file_path:
         with open(file_path, "w") as file_handle:
             file_handle.write(corrected_text_blob)
+
 # Set up Tkinter window
 root = tk.Tk()
 root.title("Text Correction Tool")
 
-# Create and place widgets
-original_text = tk.Text(root, height=10, width=50, wrap=tk.WORD)
-original_text_label = tk.Label(root, text="Original Text:")
-browse_button = tk.Button(root, text="Browse", command=browse_file)
+# Create and place widgets with color scheme
+original_text_label = tk.Label(root, text="Original Text:", bg="#f0f0f0", fg="#333333").grid(row=0, column=0, pady=(10, 5), sticky="w")
+original_text = tk.Text(root, height=7, width=80, wrap=tk.WORD, bg="#f0f0f0", fg="#333333")
+original_text.grid(row=1, column=0, padx=(10, 5), pady=(0, 5), columnspan=3, sticky="w")
+browse_button = tk.Button(root, text="Browse", command=browse_file, bg="#4CAF50", fg="white").grid(row=2, column=1, padx=(10, 5), pady=(0, 10), sticky="w")
 
-process_button = tk.Button(root, text="Process Text", command=process_text)
+corrected_text_label = tk.Label(root, text="Corrected Text:", bg="#f0f0f0", fg="#333333").grid(row=3, column=0, pady=(10, 5), sticky="w")
+corrected_text = tk.Text(root, height=5, width=80, wrap=tk.WORD, bg="#f0f0f0", fg="#333333")
+corrected_text.grid(row=4, column=0, padx=(10, 5), pady=(0, 5), columnspan=3, sticky="w")
 
-corrected_text = tk.Text(root, height=10, width=50, wrap=tk.WORD)
-corrected_text_label = tk.Label(root, text="Corrected Text:")
+text_without_punctuations_label = tk.Label(root, text="Text without Punctuations:", bg="#f0f0f0", fg="#333333").grid(row=5, column=0, pady=(10, 5), sticky="w")
+text_without_punctuations_display = tk.Text(root, height=5, width=80, wrap=tk.WORD, bg="#f0f0f0", fg="#333333")
+text_without_punctuations_display.grid(row=6, column=0, padx=(10, 5), pady=(0, 5), columnspan=3, sticky="w")
 
-text_without_punctuations_display = tk.Text(root, height=5, width=50, wrap=tk.WORD)
-text_without_punctuations_label = tk.Label(root, text="Text without Punctuations:")
+misspelled_words_label = tk.Label(root, text="Possible Misspelled Words:", bg="#f0f0f0", fg="#333333").grid(row=7, column=0, pady=(10, 5), sticky="w")
+misspelled_words_display = tk.Text(root, height=5, width=80, wrap=tk.WORD, bg="#f0f0f0", fg="#333333")
+misspelled_words_display.grid(row=8, column=0, padx=(10, 5), pady=(0, 5), columnspan=3, sticky="w")
 
-misspelled_words_display = tk.Text(root, height=5, width=50, wrap=tk.WORD)
-misspelled_words_label = tk.Label(root, text="Possible Misspelled Words:")
+corrections_label = tk.Label(root, text="Corrections:", bg="#f0f0f0", fg="#333333").grid(row=9, column=0, pady=(10, 5), sticky="w")
+corrections_display = tk.Text(root, height=5, width=80, wrap=tk.WORD, bg="#f0f0f0", fg="#333333")
+corrections_display.grid(row=10, column=0, padx=(10, 5), pady=(0, 5), columnspan=3, sticky="w")
 
-corrections_display = tk.Text(root, height=5, width=50, wrap=tk.WORD)
-corrections_label = tk.Label(root, text="Corrections:")
-
-# Place widgets in the grid
-original_text_label.grid(row=0, column=0, pady=(10, 5), sticky="w")
-original_text.grid(row=1, column=0, padx=(10, 5), pady=(0, 5), rowspan=2, columnspan=2, sticky="w")
-
-browse_button.grid(row=3, column=0, padx=(10, 5), pady=(0, 10), sticky="w")
-
-process_button.grid(row=4, column=0, padx=(10, 5), pady=(0, 10), sticky="w")
-
-corrected_text_label.grid(row=0, column=3, pady=(10, 5), sticky="w")
-corrected_text.grid(row=1, column=3, padx=(10, 5), pady=(0, 5), rowspan=2, columnspan=2, sticky="w")
-
-text_without_punctuations_label.grid(row=3, column=3, pady=(10, 5), sticky="w")
-text_without_punctuations_display.grid(row=4, column=3, padx=(10, 5), pady=(0, 5), sticky="w")
-
-misspelled_words_label.grid(row=5, column=3, pady=(10, 5), sticky="w")
-misspelled_words_display.grid(row=6, column=3, padx=(10, 5), pady=(0, 5), sticky="w")
-
-corrections_label.grid(row=7, column=3, pady=(10, 5), sticky="w")
-corrections_display.grid(row=8, column=3, padx=(10, 5), pady=(0, 5), sticky="w")
+process_button = tk.Button(root, text="Process Text", command=process_text, bg="#4CAF50", fg="white").grid(row=11, column=1, padx=(10, 5), pady=(0, 10), sticky="w")
+save_button = tk.Button(root, text="Save Text", command=ask_for_saving, bg="#4CAF50", fg="white").grid(row=11, column=1, padx=(10, 5), pady=(0, 10), sticky="w")
 
 root.mainloop()
