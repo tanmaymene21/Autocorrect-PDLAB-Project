@@ -4,7 +4,6 @@ from tkinter import filedialog
 from textblob import TextBlob
 from spellchecker import SpellChecker
 
-# Initialize SpellChecker
 spell = SpellChecker()
 
 def correct_text_with_textblob(text):
@@ -34,17 +33,16 @@ def browse_file():
 def process_text():
     text = original_text.get(1.0, tk.END)
 
-    # Correct text with TextBlob
+
     corrected_text_blob = correct_text_with_textblob(text)
     corrected_text.delete(1.0, tk.END)
     corrected_text.insert(tk.END, corrected_text_blob)
 
-    # Remove punctuations
+
     text_without_punctuations = remove_punctuations(text)
     text_without_punctuations_display.delete(1.0, tk.END)
     text_without_punctuations_display.insert(tk.END, text_without_punctuations)
 
-    # Spell check with SpellChecker
     corrections = spell_check_with_spellchecker(text_without_punctuations)
     misspelled_words_display.delete(1.0, tk.END)
     misspelled_words_display.insert(tk.END, "\n".join(corrections.keys()))
@@ -53,7 +51,7 @@ def process_text():
     corrections_display.insert(tk.END, "\n".join([f"{word}: {corrections[word]}" for word in corrections]))
 
 def ask_for_saving():
-    # Finally, overwrite the text file with the corrected text
+
     file_path = filedialog.asksaveasfilename(defaultextension=".txt", filetypes=[("Text files", "*.txt")])
     text = original_text.get(1.0, tk.END)
     corrected_text_blob = correct_text_with_textblob(text)
@@ -88,6 +86,6 @@ corrections_display = tk.Text(root, height=5, width=80, wrap=tk.WORD, bg="#f0f0f
 corrections_display.grid(row=10, column=0, padx=(10, 5), pady=(0, 5), columnspan=3, sticky="w")
 
 process_button = tk.Button(root, text="Process Text", command=process_text, bg="#4CAF50", fg="white").grid(row=11, column=1, padx=(10, 5), pady=(0, 10), sticky="w")
-save_button = tk.Button(root, text="Save Text", command=ask_for_saving, bg="#4CAF50", fg="white").grid(row=11, column=1, padx=(10, 5), pady=(0, 10), sticky="w")
+save_button = tk.Button(root, text="Save Text", command=ask_for_saving, bg="#4CAF50", fg="white").grid(row=12, column=1, padx=(18, 5), pady=(0, 10), sticky="w")
 
 root.mainloop()
