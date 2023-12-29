@@ -1,5 +1,4 @@
 import tkinter as tk
-import re
 from tkinter import filedialog
 from textblob import TextBlob
 from spellchecker import SpellChecker
@@ -22,6 +21,7 @@ def removePunctuations(text):
             noPunctuations += char
             
     return noPunctuations
+
 
 def useSpellchecker(text):
     punctuations = '''!()-[]{};:'"\,<>./?@#$%^&*_~'''
@@ -80,35 +80,88 @@ root = tk.Tk()
 root.title("Text Correction Tool")
 
 # Create and place widgets with color scheme
-originalTextLabel = tk.Label(root, text="Original Text:", bg="#f0f0f0", fg="#333333").grid(row=0, column=0, pady=(10, 5), sticky="w")
+originalTextLabel = tk.Label(root, 
+                             text="Original Text:", 
+                             bg="#f0f0f0",
+                             fg="#333333"
+                             ).grid(row=0, column=0, pady=(10, 5), sticky="w")
 
-originalText = tk.Text(root, height=7, width=80, wrap=tk.WORD, bg="#f0f0f0", fg="#333333")
+originalText = tk.Text(root,
+                       height=7, 
+                       width=80, 
+                       wrap=tk.WORD, 
+                       bg="#f0f0f0", 
+                       fg="#333333")
 originalText.grid(row=1, column=0, padx=(10, 5), pady=(0, 5), columnspan=3, sticky="w")
 
-browseButton = tk.Button(root, text="Browse", command=browseFile, bg="#4CAF50", fg="white").grid(row=2, column=1, padx=(10, 5), pady=(0, 10), sticky="w")
+browseButton = tk.Button(root,
+                         text="Browse", 
+                         command=browseFile,
+                         bg="#4CAF50", 
+                         fg="white").grid(row=2, column=1, padx=(10, 5), pady=(0, 10), sticky="w")
 
-correctedTextLabel = tk.Label(root, text="Corrected Text:", bg="#f0f0f0", fg="#333333").grid(row=3, column=0, pady=(10, 5), sticky="w")
+correctedTextLabel = tk.Label(root,
+                              text="Corrected Text:", 
+                              bg="#f0f0f0",
+                              fg="#333333").grid(row=3, column=0, pady=(10, 5), sticky="w")
 
-correctedText = tk.Text(root, height=5, width=80, wrap=tk.WORD, bg="#f0f0f0", fg="#333333")
+correctedText = tk.Text(root,
+                        height=5, 
+                        width=80,
+                        wrap=tk.WORD,
+                        bg="#f0f0f0",
+                        fg="#333333")
 correctedText.grid(row=4, column=0, padx=(10, 5), pady=(0, 5), columnspan=3, sticky="w")
 
-textWithoutPunctuationLabel = tk.Label(root, text="Text without Punctuations:", bg="#f0f0f0", fg="#333333").grid(row=5, column=0, pady=(10, 5), sticky="w")
+textWithoutPunctuationLabel = tk.Label(root,
+                                       text="Text without Punctuations:",
+                                       bg="#f0f0f0",
+                                       fg="#333333").grid(row=5, column=0, pady=(10, 5), sticky="w")
 
-textWithoutPunctuationTextbox = tk.Text(root, height=5, width=80, wrap=tk.WORD, bg="#f0f0f0", fg="#333333")
+textWithoutPunctuationTextbox = tk.Text(root,
+                                        height=5,
+                                        width=80,
+                                        wrap=tk.WORD,
+                                        bg="#f0f0f0",
+                                        fg="#333333")
 textWithoutPunctuationTextbox.grid(row=6, column=0, padx=(10, 5), pady=(0, 5), columnspan=3, sticky="w")
 
-mispelledWordsLabel = tk.Label(root, text="Possible Misspelled Words:", bg="#f0f0f0", fg="#333333").grid(row=7, column=0, pady=(10, 5), sticky="w")
+mispelledWordsLabel = tk.Label(root,
+                               text="Possible Misspelled Words:",
+                               bg="#f0f0f0",
+                               fg="#333333").grid(row=7, column=0, pady=(10, 5), sticky="w")
 
-mispelledWordsTextbox = tk.Text(root, height=5, width=80, wrap=tk.WORD, bg="#f0f0f0", fg="#333333")
+mispelledWordsTextbox = tk.Text(root,
+                                height=5,
+                                width=80,
+                                wrap=tk.WORD,
+                                bg="#f0f0f0",
+                                fg="#333333")
 mispelledWordsTextbox.grid(row=8, column=0, padx=(10, 5), pady=(0, 5), columnspan=3, sticky="w")
 
-correctionsLabel = tk.Label(root, text="Corrections:", bg="#f0f0f0", fg="#333333").grid(row=9, column=0, pady=(10, 5), sticky="w")
+correctionsLabel = tk.Label(root,
+                            text="Corrections:",
+                            bg="#f0f0f0",
+                            fg="#333333").grid(row=9, column=0, pady=(10, 5), sticky="w")
 
-correctionsTextbox = tk.Text(root, height=5, width=80, wrap=tk.WORD, bg="#f0f0f0", fg="#333333")
+correctionsTextbox = tk.Text(root,
+                             height=5,
+                             width=80,
+                             wrap=tk.WORD,
+                             bg="#f0f0f0",
+                             fg="#333333")
 correctionsTextbox.grid(row=10, column=0, padx=(10, 5), pady=(0, 5), columnspan=3, sticky="w")
 
-processButton = tk.Button(root, text="Process Text", command=processText, bg="#4CAF50", fg="white").grid(row=11, column=1, padx=(10, 5), pady=(0, 10), sticky="w")
+processButton = tk.Button(root,
+                          text="Process Text",
+                          command=processText,
+                          bg="#4CAF50",
+                          fg="white").grid(row=11, column=1, padx=(10, 5), pady=(0, 10), sticky="w")
 
-saveButton = tk.Button(root, text="Save Text", command=askForSaving, bg="#4CAF50", fg="white").grid(row=12, column=1, padx=(18, 5), pady=(0, 10), sticky="w")
+saveButton = tk.Button(root,
+                       text="Save Text", 
+                       command=askForSaving,
+                       bg="#4CAF50",
+                       fg="white").grid(row=12, column=1, padx=(18, 5), pady=(0, 10), sticky="w")
 
 root.mainloop()
